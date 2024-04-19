@@ -1,0 +1,56 @@
+.menu {
+  box-sizing: border-box;
+  width: 100%;
+  color: white;
+  background: #dbdbdb;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  opacity: 0.9;
+  padding-top: 10px;
+  padding-bottom: 7px;
+}
+
+.menu-item {
+  position: relative;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.menu-item__status {
+  opacity: 0;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  background: #3d912eb5;
+  box-shadow: 0 4px 12px 2px #3d912eb5;
+  width: 70px;
+  height: 2px;
+  transform: translateX(-50%);
+  transition: opacity 500ms ease-out;
+}
+
+.menu-item--active .menu-item__status {
+  opacity: 1;
+}
+
+.menu-item__icon {
+  display: flex;
+  justify-content: center;
+}
+
+.menu-item__icon svg path {
+  fill: white;
+}
+
+.menu-item__text {
+  color: grey;
+  transition: color 500ms ease-out;
+}
+
+.menu-item--active .menu-item__text {
+  color: #3d912eb5;
+}

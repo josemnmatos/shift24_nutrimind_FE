@@ -1,0 +1,23 @@
+<div class="menu">
+  <div [ngClass]="{'menu-item--active': currentRoute === FOOTER_BAR_COMPONENTS.HOME}"
+       class="menu-item" (click)="changeMenu(FOOTER_BAR_COMPONENTS.HOME)">
+    <div class="menu-item__status"></div>
+    <div class="menu-item__icon">
+      <i class="pi pi-home menu-item__text"></i>
+    </div>
+  </div>
+  <div [ngClass]="{'menu-item--active': currentRoute === FOOTER_BAR_COMPONENTS.HISTORY}"
+       class="menu-item" (click)="changeMenu(FOOTER_BAR_COMPONENTS.HISTORY)">
+    <div class="menu-item__status"></div>
+    <div class="menu-item__icon">
+      <i class="pi pi-chart-bar menu-item__text"></i>
+    </div>
+  </div>
+  <div [ngClass]="{'menu-item--active': currentRoute === FOOTER_BAR_COMPONENTS.CHATBOT}"
+       class="menu-item" (click)="changeMenu(FOOTER_BAR_COMPONENTS.CHATBOT)">
+    <div class="menu-item__status"></div>
+    <div class="menu-item__icon">
+      <i class="pi pi-microchip-ai menu-item__text"></i>
+    </div>
+  </div>
+</div>
