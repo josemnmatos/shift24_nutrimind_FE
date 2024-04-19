@@ -3,7 +3,10 @@
     {{ mealLog?.mealType }}
   </p>
   <div *ngFor="let iteam of mealLog?.mealItems">
-    <p class="m-0 text-start">{{ iteam?.name }}</p>
+    <span class="d-flex">
+      <fa-icon [icon]="faCoffee"></fa-icon>
+      <p class="m-0 ms-2 text-start">{{ iteam?.name }}</p>
+    </span>
   </div>
 
   <p-progressBar
