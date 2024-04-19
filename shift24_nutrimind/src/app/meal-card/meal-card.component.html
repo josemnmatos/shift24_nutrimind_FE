@@ -1,0 +1,33 @@
+<div class="card border-0">
+  <p class="text" style="color: #000000; font-size: 1.5rem">
+    {{ mealLog?.mealType }}
+  </p>
+  <div *ngFor="let iteam of mealLog?.mealItems">
+    <span class="d-flex">
+      <fa-icon [icon]="faCoffee"></fa-icon>
+      <p class="m-0 ms-2 text-start">{{ iteam?.name }}</p>
+    </span>
+  </div>
+
+  <p-progressBar
+    [style]="{ height: '.5rem' }"
+    class="mt-2"
+    [showValue]="false"
+    [value]="25"
+    [color]="primaryColor"
+  ></p-progressBar>
+  <p-progressBar
+    [style]="{ height: '.5rem' }"
+    class="mt-2"
+    [showValue]="false"
+    [value]="50"
+    [color]="secondaryColor"
+  ></p-progressBar>
+  <p-progressBar
+    [style]="{ height: '.5rem' }"
+    class="mt-2"
+    [showValue]="false"
+    [value]="75"
+    [color]="quaternaryColor"
+  ></p-progressBar>
+</div>
