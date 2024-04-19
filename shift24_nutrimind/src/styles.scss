@@ -1,24 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import "primeicons/primeicons.css";
+
 $primary-color: #95E1D3;
 $secondary-color: #F38181;
 $tertiary-color: #EAFFD0;
 $quaternary-color: #FCE38A;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-
 
 $font-family-base: 'Inter', sans-serif;
 $bs-primary: $primary-color;
 $bs-secondary: $secondary-color;
 
 
-@import "../node_modules/bootstrap/scss/bootstrap";
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-
-
 html, body {
     font-family: 'Inter', sans-serif;
-
-}@import "primeicons/primeicons.css";
+}
 
 * {
   margin: 0;
@@ -33,5 +30,5 @@ body {
   flex-direction: column;
   align-items: center;
   background: #e0e0e0;
-  overflow: hidden;
+  overflow: auto;
 }
