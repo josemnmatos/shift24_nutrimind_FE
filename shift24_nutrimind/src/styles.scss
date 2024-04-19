@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+$primary-color: #95E1D3;
+$secondary-color: #F38181;
+$tertiary-color: #EAFFD0;
+$quaternary-color: #FCE38A;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+
+$font-family-base: 'Inter', sans-serif;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
+html, body {
+    font-family: 'Inter', sans-serif;
+
+}
