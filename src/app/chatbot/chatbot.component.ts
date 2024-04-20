@@ -6,19 +6,14 @@ import {
   WebsocketService,
 } from '../services/websocket/websocket.service';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgClass } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription, takeUntil } from 'rxjs';
-
-export interface ChatMessage {
-  message: string;
-  isBot: boolean;
-}
 
 @Component({
   selector: 'app-chatbot',
   standalone: true,
-  imports: [FormsModule, NgFor, NgClass],
+  imports: [FormsModule, NgFor],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.scss',
   providers: [WebsocketService, HttpClient],
@@ -52,81 +47,9 @@ export class ChatbotComponent {
   }
 
   sendMessage() {
-    //this.websocketService.sendMessage(this.newMessage);
-    this.messageHistory.push(this.userInputMessage);
-    this.userInputMessage = {
-      message: '',
-      isBot: false,
-    };
-  }
-
-  // get request to the server endpoint to create a conversationId
-  getConversationId() {
-    const requestOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('token') || '',
-      }),
-    };
-
-    console.log(requestOptions);
-
-    this.http
-      .get('http://localhost:8000/api/create_conversation/', requestOptions)
-      .subscribe((data) => {
-        //data comes as {conversation_id: '0'}
-        //store in local storage
-        localStorage.setItem(
-          'conversationId',
-          (data as any)['conversation_id']
-        );
-        console.log((data as any).conversation_id);
-      });
-  }
-
-  // get request to the server endpoint to create a conversationId
-  getConversationId() {
-    const requestOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('token') || '',
-      }),
-    };
-
-    console.log(requestOptions);
-
-    this.http
-      .get('http://localhost:8000/api/create_conversation/', requestOptions)
-      .subscribe((data) => {
-        //data comes as {conversation_id: '0'}
-        //store in local storage
-        localStorage.setItem(
-          'conversationId',
-          (data as any)['conversation_id']
-        );
-        console.log((data as any).conversation_id);
-      });
-  }
-
-  // get request to the server endpoint to create a conversationId
-  getConversationId() {
-    const requestOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('token') || '',
-      }),
-    };
-
-    console.log(requestOptions);
-
-    this.http
-      .get('http://localhost:8000/api/create_conversation/', requestOptions)
-      .subscribe((data) => {
-        //data comes as {conversation_id: '0'}
-        //store in local storage
-        localStorage.setItem(
-          'conversationId',
-          (data as any)['conversation_id']
-        );
-        console.log((data as any).conversation_id);
-      });
+    console.log(this.newMessage);
+    this.websocketService.sendMessage(this.newMessage);
+    this.newMessage = '';
   }
 
   // get request to the server endpoint to create a conversationId
