@@ -102,6 +102,7 @@ export class HomeComponent implements OnInit {
     }
 
     this.visible = false;
+    this.searchForm.reset();
   }
 
   /**
@@ -109,18 +110,20 @@ export class HomeComponent implements OnInit {
    */
   initVoiceInput() {
     // Subscription for initializing and this will call when user stopped speaking.
-    this.speechToText.init().subscribe(() => {
-      // User has stopped recording
-      // Do whatever when mic finished listening
-    });
+    if (typeof this.speechToText !== 'undefined') {
+      this.speechToText.init()?.subscribe(() => {
+        // User has stopped recording
+        // Do whatever when mic finished listening
+      });
 
-    // Subscription to detect user input from voice to text.
-    this.speechToText.speechInput().subscribe((input) => {
-      // Set voice text output to
-      // Set voice text output to
-      this.searchForm.controls['searchText'].setValue(input);
-      this.updateInputArrayCallback();
-    });
+      // Subscription to detect user input from voice to text.
+      this.speechToText.speechInput().subscribe((input) => {
+        // Set voice text output to
+        // Set voice text output to
+        this.searchForm.controls['searchText'].setValue(input);
+        this.updateInputArrayCallback();
+      });
+    }
   }
 
   /**

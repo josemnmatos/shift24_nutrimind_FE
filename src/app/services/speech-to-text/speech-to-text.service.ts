@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MealItem } from '../../utils/interfaces/meal-item';
 declare var webkitSpeechRecognition: any;
@@ -14,6 +14,7 @@ export class SpeechToTextService {
   private speakingPaused: Subject<any> = new Subject();
   private tempWords: string = '';
   private nutritionData: MealItem[] = [];
+
   constructor() {}
 
   /**
@@ -27,19 +28,22 @@ export class SpeechToTextService {
    * @description Function to initialize voice recognition.
    */
   init() {
-    this.recognition = new webkitSpeechRecognition();
-    this.recognition.interimResults = true;
-    this.recognition.lang = 'en-EN';
+    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
+      this.recognition = new webkitSpeechRecognition();
+      this.recognition.interimResults = true;
+      this.recognition.lang = 'en-EN';
 
-    this.recognition.addEventListener('result', (e: any) => {
-      const transcript = Array.from(e.results)
-        .map((result: any) => result[0])
-        .map((result) => result.transcript)
-        .join('.');
-      this.tempWords = transcript;
-      this.voiceToTextSubject.next(this.text || transcript);
-    });
-    return this.initListeners();
+      this.recognition.addEventListener('result', (e: any) => {
+        const transcript = Array.from(e.results)
+          .map((result: any) => result[0])
+          .map((result) => result.transcript)
+          .join('.');
+        this.tempWords = transcript;
+        this.voiceToTextSubject.next(this.text || transcript);
+      });
+      return this.initListeners();
+    }
+    return null;
   }
 
   /**

@@ -1,3 +1,5 @@
+import { foodGroups } from '../enums';
+
 export interface MealItem {
   name: string;
   brand: string;
@@ -20,6 +22,8 @@ export interface MealItem {
 
 export class Convert {
   static toMealItem(json: any): MealItem {
+    let foodGroupId = json.tags.food_group;
+
     return {
       name: json.food_name,
       brand: json.brand_name,
@@ -37,7 +41,7 @@ export class Convert {
       protein: json.nf_protein,
       potassium: json.nf_potassium,
       fullNutrients: json.full_nutrients,
-      foodGroup: json.food_group,
+      foodGroup: foodGroups[foodGroupId],
     };
   }
 }

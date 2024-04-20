@@ -1,12 +1,17 @@
-<div class="card border-0">
+<div class="card border-0 bg-transparent">
   <div class="row d-flex justify-content-between">
-    <div class="col-6">
+    <div class="col-6 mt-1">
       <p class="text" style="color: #000000; font-size: 1.5rem">
         {{ mealLog?.mealType }}
       </p>
     </div>
     <div class="col-4 mt-2 me-2 text-end">
-      <p class="text" style="color: #000000; font-size: 1rem">
+      <p
+        class="text"
+        class="text-center rounded-3 pt-1 pb-1 text-white"
+        [style]="{ backgroundColor: primaryColor }"
+        style="color: #000000; font-size: 1rem"
+      >
         {{ getTotalCalories() }} cal
       </p>
     </div>
@@ -14,31 +19,38 @@
 
   <div *ngFor="let item of mealLog?.mealItems">
     <span class="d-flex">
-      <fa-icon [icon]="faCoffee"></fa-icon>
-      <p class="m-0 ms-2 text-start">{{ item?.name }}</p>
-      <p class="m-0 ms-2 text-start">{{ item?.foodGroup }}</p>
+      <fa-icon [icon]="getFoodGroupIcon(item.foodGroup)"></fa-icon>
+      <p class="m-0 ms-2 text-start">{{ item?.name | titlecase }}</p>
     </span>
   </div>
 
-  <p-progressBar
-    [style]="{ height: '.5rem' }"
-    class="mt-2"
-    [showValue]="false"
-    [value]="25"
-    [color]="primaryColor"
-  ></p-progressBar>
-  <p-progressBar
-    [style]="{ height: '.5rem' }"
-    class="mt-2"
-    [showValue]="false"
-    [value]="50"
-    [color]="secondaryColor"
-  ></p-progressBar>
-  <p-progressBar
-    [style]="{ height: '.5rem' }"
-    class="mt-2"
-    [showValue]="false"
-    [value]="75"
-    [color]="quaternaryColor"
-  ></p-progressBar>
+  <div class="bg-white p-3 rounded-3">
+    <div class="mt-2">
+      <p-progressBar
+        [style]="{ height: '.5rem' }"
+        class="mt-2"
+        [showValue]="false"
+        [value]="25"
+        [color]="primaryColor"
+      ></p-progressBar>
+    </div>
+    <div class="mt-2">
+      <p-progressBar
+        [style]="{ height: '.5rem' }"
+        class="mt-3"
+        [showValue]="false"
+        [value]="50"
+        [color]="secondaryColor"
+      ></p-progressBar>
+    </div>
+    <div class="mt-2">
+      <p-progressBar
+        [style]="{ height: '.5rem' }"
+        class="mt-2"
+        [showValue]="false"
+        [value]="75"
+        [color]="quaternaryColor"
+      ></p-progressBar>
+    </div>
+  </div>
 </div>

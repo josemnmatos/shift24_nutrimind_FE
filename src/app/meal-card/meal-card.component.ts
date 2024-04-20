@@ -1,15 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { MealLog } from '../utils/interfaces/meal-log';
-import { NgFor } from '@angular/common';
+import { NgFor, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ColorScheme } from '../utils/color-scheme';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {
+  IconDefinition,
+  faAppleWhole,
+  faBottleDroplet,
+  faBowlFood,
+  faCarrot,
+  faCoffee,
+  faDrumstickBite,
+  faSeedling,
+  faUtensils,
+  faWheatAwn,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-meal-card',
   standalone: true,
-  imports: [NgFor, ProgressBarModule, FontAwesomeModule],
+  imports: [NgFor, ProgressBarModule, FontAwesomeModule, TitleCasePipe],
   templateUrl: './meal-card.component.html',
   styleUrl: './meal-card.component.scss',
 })
@@ -60,6 +71,29 @@ export class MealCardComponent {
       });
     }
     return Math.round(totalFat);
+  }
+
+  getFoodGroupIcon(foodGroup: string): IconDefinition {
+    switch (foodGroup) {
+      case 'Dairy':
+        return faCoffee;
+      case 'Protein':
+        return faDrumstickBite;
+      case 'Fruit':
+        return faAppleWhole;
+      case 'Vegetable':
+        return faSeedling;
+      case 'Grain':
+        return faWheatAwn;
+      case 'Fat':
+        return faBottleDroplet;
+      case 'Legume':
+        return faCarrot;
+      case 'Combination':
+        return faBowlFood;
+      default:
+        return faUtensils;
+    }
   }
 
   constructor() {}
