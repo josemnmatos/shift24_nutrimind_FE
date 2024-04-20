@@ -15,27 +15,19 @@ import { NgFor } from '@angular/common';
   providers: [WebsocketService],
 })
 export class ChatbotComponent {
-  title = 'socketrv';
-  content = '';
-  received: Message[] = [];
-  sent: Message[] = [];
+  newMessage = '';
+  messageList: string[] = [];
 
-  constructor(private WebsocketService: WebsocketService) {
-    WebsocketService.messages.subscribe((msg) => {
-      this.received.push(msg);
-      console.log('Response from websocket: ' + msg);
+  constructor(private websocketService: WebsocketService) {}
+
+  ngOnInit() {
+    this.websocketService.getNewMessage().subscribe((message: string) => {
+      this.messageList.push(message);
     });
   }
 
-  sendMsg() {
-    let message = {
-      source: '',
-      content: '',
-    };
-    message.source = 'localhost';
-    message.content = this.content;
-
-    this.sent.push(message);
-    this.WebsocketService.messages.next(message);
+  sendMessage() {
+    this.websocketService.sendMessage(this.newMessage);
+    this.newMessage = '';
   }
 }
