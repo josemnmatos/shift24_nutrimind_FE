@@ -1,40 +1,41 @@
-<div class="col d-flex justify-content-center ps-5 pe-5 mt-3">
-  <div class=" ">
-    <img class="w-50 mx-auto d-block pb-4" src="assets/images/logo.svg" />
-    <p class="display-4">Hello, user</p>
-    <div>
-      <p-chips
-        class="test"
-        [(ngModel)]="values"
-        separator=","
-        placeholder="Hint: a, b, c"
-        styleClass="chips"
-      ></p-chips>
-    </div>
-    <br />
-    <p class="display-6">Your day so far</p>
-    <div class="row p-3">
-      <div class="col">
+<div class="col d-flex justify-content-center ps-3 pe-3 mt-3 mb-5">
+  <div class="main-container">
+    <img class="w-50 mx-auto d-block pb-4" src="assets/images/logo.svg"/>
+    <!--<p class="display-4">Hello, user</p>-->
+    <p class="info-subtitle">Your day so far</p>
+    <div class="d-flex justify-content-center align-items-center info-container">
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
         <p-knob
           [(ngModel)]="knob1Value"
           [valueColor]="primaryColor"
-          [size]="75"
+          [size]="60"
         ></p-knob>
+        <p class="subheader">calories</p>
       </div>
-      <div class="col">
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
         <p-knob
           [(ngModel)]="knob2Value"
           [valueColor]="secondaryColor"
-          [size]="75"
+          [size]="60"
         ></p-knob>
+        <p class="subheader">carbs</p>
       </div>
-      <div class="col">
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
         <p-knob
           [(ngModel)]="knob3Value"
           [valueColor]="quaternaryColor"
-          [size]="75"
+          [size]="60"
         ></p-knob>
+        <p class="subheader">protein</p>
       </div>
+        <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
+          <p-knob
+            [(ngModel)]="knob3Value"
+            [valueColor]="quaternaryColor"
+            [size]="60"
+          ></p-knob>
+          <p class="subheader">fats</p>
+        </div>
     </div>
 
     <div *ngFor="let meal of meals" class="row">
@@ -43,4 +44,35 @@
       </div>
     </div>
   </div>
+</div>
+
+<div>
+  <p-button (click)="openInputDialog()" icon="pi pi-plus"></p-button>
+  <p-dialog header="Header"
+            [(visible)]="visible"
+            [draggable]="false"
+            [resizable]="false">
+    <p-chips
+      [(ngModel)]="values"
+      separator=","
+      placeholder="Tell us what you ate today"
+      styleClass="chips"
+    ></p-chips>
+    <div class="d-flex justify-content-between mt-3">
+      <button class="btn btn-primary dialog-button"
+              (click)="onSubmit('')">
+        <i class="pi pi-send"></i>
+      </button>
+      <button *ngIf="isUserSpeaking"
+              class="btn btn-danger dialog-button"
+              (click)="stopRecording()">
+        <i class="pi pi-microphone"></i>
+      </button>
+      <button *ngIf="!isUserSpeaking"
+              class="btn btn-primary dialog-button"
+              (click)="startRecording()">
+        <i class="pi pi-microphone"></i>
+      </button>
+    </div>
+  </p-dialog>
 </div>
