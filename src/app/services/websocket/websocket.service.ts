@@ -16,7 +16,7 @@ export class WebsocketService {
 
   //localStorage.getItem('token')
 
-  socket = io('http://64.227.122.94:8000', {
+  socket = io('http://localhost:8000', {
     extraHeaders: {
       Authorization: localStorage.getItem('token') || '',
     },
@@ -36,8 +36,8 @@ export class WebsocketService {
 
   public getNewMessage = () => {
     this.socket.on('new_message_r', (message) => {
-      console.log(localStorage.getItem('uuid'));
-      console.log(message.roomName);
+      //console.log(localStorage.getItem('uuid'));
+      //console.log(message.roomName);
       //if (message.roomName === localStorage.getItem('uuid')) {
       this.message$.next(message);
       console.log('getNewMessage: ', message);
