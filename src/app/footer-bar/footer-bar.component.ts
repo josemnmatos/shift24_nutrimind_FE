@@ -24,7 +24,9 @@ export class FooterBarComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.currentRoute = FOOTER_BAR_COMPONENTS.HOME;
+    setTimeout(() => {
+      this.currentRoute = this.router.url.split('/')[1];
+    });
   }
 
   public changeMenu(selectedFooter: string): void {
