@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { MealItem } from '../../utils/interfaces/meal-item';
 declare var webkitSpeechRecognition: any;
 
 @Injectable({
@@ -12,6 +13,7 @@ export class SpeechToTextService {
   private voiceToTextSubject: Subject<string> = new Subject();
   private speakingPaused: Subject<any> = new Subject();
   private tempWords: string = '';
+  private nutritionData: MealItem[] = [];
   constructor() {}
 
   /**
@@ -27,13 +29,13 @@ export class SpeechToTextService {
   init() {
     this.recognition = new webkitSpeechRecognition();
     this.recognition.interimResults = true;
-    this.recognition.lang = 'en-US';
+    this.recognition.lang = 'en-EN';
 
     this.recognition.addEventListener('result', (e: any) => {
       const transcript = Array.from(e.results)
         .map((result: any) => result[0])
         .map((result) => result.transcript)
-        .join('');
+        .join('.');
       this.tempWords = transcript;
       this.voiceToTextSubject.next(this.text || transcript);
     });
@@ -54,7 +56,6 @@ export class SpeechToTextService {
    * @description Function to mic on to listen.
    */
   start() {
-    this.text = '';
     this.isStoppedSpeechRecog = false;
     this.recognition.start();
     this.recognition.addEventListener('end', (condition: any) => {
@@ -82,12 +83,20 @@ export class SpeechToTextService {
    * @description Function to stop recognition.
    */
   stop() {
-    this.text = '';
     this.isStoppedSpeechRecog = true;
     this.wordConcat();
     this.recognition.stop();
     this.recognition.isActive = false;
     this.speakingPaused.next('Stopped speaking');
+  }
+
+  /**
+   * @description Function to reset voice recognition.
+   */
+  reset() {
+    this.text = '';
+    this.tempWords = '';
+    this.recognition.stop();
   }
 
   /**
