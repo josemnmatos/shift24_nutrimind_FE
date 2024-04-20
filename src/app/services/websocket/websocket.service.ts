@@ -14,7 +14,7 @@ export class WebsocketService {
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor() {}
 
-  socket = io('http://localhost:5000');
+  socket = io('http://64.227.122.94:8000');
 
   public sendMessage(message: any) {
     console.log('sendMessage: ', message);
