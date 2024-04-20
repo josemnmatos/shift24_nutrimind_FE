@@ -20,6 +20,33 @@
         required
       />
     </div>
-    <button (click)="onSignUp()" type="submit">Login</button>
+    <button (click)="onSignIn()" type="submit">Login</button>
+  </form>
+</div>
+
+<br /><br />
+<div>
+  <form action="">
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="this.email"
+        name="email"
+        required
+      />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        [(ngModel)]="this.password"
+        id="password"
+        name="password"
+        required
+      />
+    </div>
+    <button (click)="onSignUp()" type="submit">Register</button>
   </form>
 </div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/authentication/auth.service';
 
 @Component({
   selector: 'app-authentication',
@@ -10,12 +11,16 @@ import { Router } from '@angular/router';
   styleUrl: './authentication.component.scss',
 })
 export class AuthenticationComponent {
-  email: string | undefined;
-  password: string | undefined;
+  email: string = '';
+  password: string = '';
 
-  constructor() {}
+  constructor(private auth: AuthService) {}
 
-  onSignUp() {}
+  onSignUp() {
+    this.auth.register(this.email, this.password);
+  }
 
-  onSignIn() {}
+  onSignIn() {
+    this.auth.login(this.email, this.password);
+  }
 }
