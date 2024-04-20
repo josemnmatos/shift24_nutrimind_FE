@@ -10,14 +10,34 @@
     </div>
   </div>
 
-  <div class="row d-flex mt-3" *ngFor="let message of messageList">
-    <div class="col-10">
-      <div class="card border-0 w-100">
-        <div>
-          <p class="card-text">{{ message }}</p>
+  <div id="chatbot_box">
+    <ng-container *ngIf="num_messages > 0">
+      <ng-container
+        class="row d-flex mt-3"
+        *ngFor="
+          let message of messageList_bot.slice(0, messageList_bot.length - 1);
+          let index = index
+        "
+      >
+        <div class="col-10">
+          <div style="white-space: pre-line" class="card border-0 w-100 p-3">
+            <div>
+              <p class="card-text">{{ messageList_user[index] }}</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        <div class="col-10">
+          <div
+            style="white-space: pre-line"
+            class="card border-0 w-100 p-3 bg-primary"
+          >
+            <div>
+              <p class="card-text">{{ message }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
 

@@ -6,21 +6,23 @@ import {
   WebsocketService,
 } from '../services/websocket/websocket.service';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Subject } from 'rxjs/internal/Subject';
 import { Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-chatbot',
   standalone: true,
-  imports: [FormsModule, NgFor],
+  imports: [FormsModule, NgFor, NgIf],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.scss',
   providers: [WebsocketService, HttpClient],
 })
 export class ChatbotComponent {
   newMessage = '';
-  messageList: string[] = [];
+  messageList_bot: string[] = [''];
+  messageList_user: string[] = [];
+  num_messages = 0;
 
   private subscription: Subscription;
 
@@ -31,7 +33,14 @@ export class ChatbotComponent {
     this.subscription = this.websocketService
       .getNewMessage()
       .subscribe((message: string) => {
-        this.messageList.push(message);
+        this.messageList_bot[this.num_messages - 1] =
+          this.messageList_bot[this.num_messages - 1] + message;
+        //console.log(this.messageList_bot);
+        let chatbot_box = document.getElementById('chatbot_box');
+
+        if (chatbot_box) {
+          chatbot_box.scrollTop = chatbot_box.scrollHeight;
+        }
       });
   }
 
@@ -47,9 +56,13 @@ export class ChatbotComponent {
   }
 
   sendMessage() {
-    console.log(this.newMessage);
+    //console.log(this.newMessage);
+    this.messageList_user.push(this.newMessage);
     this.websocketService.sendMessage(this.newMessage);
     this.newMessage = '';
+    this.messageList_bot.push('');
+    //console.log(this.messageList);
+    this.num_messages++;
   }
 
   // get request to the server endpoint to create a conversationId
