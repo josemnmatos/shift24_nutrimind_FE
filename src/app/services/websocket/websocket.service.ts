@@ -16,8 +16,7 @@ export class WebsocketService {
 
   //localStorage.getItem('token')
 
-  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpkdW5hcyJ9.aVh73ElHuomPK5R1uxupvtwLtTelvUkfLO1oOKL1LGU
-  socket = io('http://localhost:8000', {
+  socket = io('http://64.227.122.94:8000', {
     extraHeaders: {
       Authorization: localStorage.getItem('token') || '',
     },
