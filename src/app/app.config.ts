@@ -1,8 +1,9 @@
-import {ApplicationConfig, isDevMode} from '@angular/core';
-import {provideRouter} from '@angular/router';
+import { ApplicationConfig, isDevMode } from '@angular/core';
+import { provideRouter } from '@angular/router';
 
-import {routes} from './app.routes';
-import {provideServiceWorker} from '@angular/service-worker';
+import { routes } from './app.routes';
+import { provideServiceWorker } from '@angular/service-worker';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,5 +12,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    provideHttpClient(),
   ],
 };
