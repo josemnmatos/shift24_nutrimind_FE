@@ -40,6 +40,7 @@
               class="btn btn-success"
               type="button"
               style="border-radius: 10px; height: 5rem"
+              [disabled]="newMessage === ''"
               (click)="sendMessage()"
             >
               <i class="bi bi-send"></i>
