@@ -1,1 +1,14 @@
-<p>history works!</p>
+<div class="card flex justify-content-center">
+  <p-calendar
+    placeholder="Please select your dates"
+    [style]="{ width: '100%' }"
+    [(ngModel)]="date"
+    [iconDisplay]="'input'"
+    [showIcon]="true"
+    [touchUI]="true"
+    [showButtonBar]="true"
+    [selectionMode]="'range'"
+    [dateFormat]="'dd/mm/yy'"
+    (onClose)="onClose()"
+  ></p-calendar>
+</div>
