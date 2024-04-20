@@ -1,11 +1,22 @@
 <div class="card border-0">
-  <p class="text" style="color: #000000; font-size: 1.5rem">
-    {{ mealLog?.mealType }}
-  </p>
-  <div *ngFor="let iteam of mealLog?.mealItems">
+  <div class="row d-flex justify-content-between">
+    <div class="col-6">
+      <p class="text" style="color: #000000; font-size: 1.5rem">
+        {{ mealLog?.mealType }}
+      </p>
+    </div>
+    <div class="col-4 mt-2 me-2 text-end">
+      <p class="text" style="color: #000000; font-size: 1rem">
+        {{ getTotalCalories() }} cal
+      </p>
+    </div>
+  </div>
+
+  <div *ngFor="let item of mealLog?.mealItems">
     <span class="d-flex">
       <fa-icon [icon]="faCoffee"></fa-icon>
-      <p class="m-0 ms-2 text-start">{{ iteam?.name }}</p>
+      <p class="m-0 ms-2 text-start">{{ item?.name }}</p>
+      <p class="m-0 ms-2 text-start">{{ item?.foodGroup }}</p>
     </span>
   </div>
 

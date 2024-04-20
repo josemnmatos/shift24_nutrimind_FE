@@ -22,5 +22,45 @@ export class MealCardComponent {
 
   faCoffee = faCoffee;
 
+  getTotalCalories(): number {
+    let totalCalories = 0;
+    if (this.mealLog) {
+      this.mealLog.mealItems.forEach((mealItem) => {
+        totalCalories += mealItem.calories;
+      });
+    }
+    return Math.round(totalCalories);
+  }
+
+  getTotalProtein(): number {
+    let totalProtein = 0;
+    if (this.mealLog) {
+      this.mealLog.mealItems.forEach((mealItem) => {
+        totalProtein += mealItem.protein;
+      });
+    }
+    return Math.round(totalProtein);
+  }
+
+  getTotalCarbs(): number {
+    let totalCarbs = 0;
+    if (this.mealLog) {
+      this.mealLog.mealItems.forEach((mealItem) => {
+        totalCarbs += mealItem.totalCarbohydrate;
+      });
+    }
+    return Math.round(totalCarbs);
+  }
+
+  getTotalFat(): number {
+    let totalFat = 0;
+    if (this.mealLog) {
+      this.mealLog.mealItems.forEach((mealItem) => {
+        totalFat += mealItem.totalFat;
+      });
+    }
+    return Math.round(totalFat);
+  }
+
   constructor() {}
 }
