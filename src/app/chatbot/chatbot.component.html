@@ -1,20 +1,25 @@
 <div
-  class="d-flex justify-content-center align-items-center flex-col"
-  style="height: 100vh; width: 100vw"
+  class="d-flex justify-content-center align-items-center flex-column"
+  style="height: 100vh; width: 100vw; position: relative"
 >
+  <div class="d-flex flex-row pt-2" style="position: absolute; top: 0">
+    <div class="mb-auto row">
+      <div class="col-10 pt-3">
+        <h4 class="text-start">Nutrimind AI</h4>
+      </div>
+      <div class="col-2 pt-3">
+        <h4 class="text-start">
+          <i style="font-size: 30px" class="pi pi-microchip-ai"></i>
+        </h4>
+      </div>
+    </div>
+  </div>
   <div
     id="chatbot_box"
-    style="
-      width: 80%;
-      height: 60%;
-      border: 2px solid black;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    "
+    class="border border-dark rounded-3 d-flex flex-column overflow-y-auto bg-success-subtle p-2"
+    style="height: 80%; width: 80%"
   >
-    <ng-container *ngIf="num_messages > 0" style="height: 80%">
+    <ng-container *ngIf="num_messages > 0" style="height: 80%" class="p-2">
       <ng-container
         *ngFor="
           let message of messageList_bot.slice(0, messageList_bot.length - 1);
@@ -22,59 +27,43 @@
         "
       >
         <div
-          style="
-            margin-left: auto;
-            border: 1px solid black;
-            border-radius: 10px;
-            padding: 3px;
-          "
+          class="border border-dark rounded p-2"
+          style="margin-left: auto; width: 45%; white-space: pre-line"
         >
           <div>
-            <p class="white-space: pre-line">
+            <p class="font-size: small">
               {{ messageList_user[index] }}
             </p>
           </div>
         </div>
 
         <div
-          style="
-            margin-right: auto;
-            width: 45%;
-            border: 1px solid black;
-            border-radius: 10px;
-            padding: 3px;
-          "
+          class="border border-dark rounded p-2"
+          style="margin-right: auto; width: 45%; white-space: pre-line"
         >
           <div>
-            <p class="white-space: pre-line">
+            <p class="font-size: small">
               {{ message }}
             </p>
           </div>
         </div>
       </ng-container>
     </ng-container>
+
     <span
-      style="
-        margin: 10px;
-        justify-content: center;
-        margin-top: auto;
-        display: flex;
-        border: 2px solid black;
-        border-radius: 10px;
-        padding: 3px;
-        background-color: white;
-        align-self: flex-end;
-      "
+      class="d-flex mx-auto mt-auto justify-content-center border border-dark rounded-3 p-2 m-2 bg-light align-self-end"
+      style="width: 80%"
     >
-      <input
-        style="width: 80%; border-radius: 10px; border: none; outline: none"
+      <textarea
+        class="rounded-3 border-0 bg-light"
+        style="width: 80%; outline: none; font-size: small"
         placeholder="Type your message here"
         [(ngModel)]="newMessage"
         (keyup.enter)="sendMessage()"
-      />
+      ></textarea>
       <button
-        style="width: 20%; border-radius: 10px; border: none; outline: none"
-        class="bg-success-subtle"
+        class="rounded-3 border-0 bg-success-subtle"
+        style="width: 20%; outline: none; font-size: small"
         [disabled]="newMessage === ''"
         (click)="sendMessage()"
       >
