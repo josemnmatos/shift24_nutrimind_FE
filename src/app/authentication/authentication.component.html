@@ -1,4 +1,4 @@
-<div>
+<!--<div>
   <form action="">
     <div>
       <label for="email">Email</label>
@@ -49,4 +49,23 @@
     </div>
     <button (click)="onSignUp()" type="submit">Register</button>
   </form>
+</div>-->
+
+<p-messages [(value)]="errorMessage" [enableService]="false" [hideTransitionOptions]="'300ms'"></p-messages>
+
+<div class="auth-container">
+  <div class="form">
+    <div class="header">
+      <img src="assets/images/logo.svg" alt="">
+    </div>
+    <div class="inputs">
+      <input [(ngModel)]="email" placeholder="Email" type="text"><br>
+      <input [(ngModel)]="password" placeholder="Password" type="password">
+    </div>
+    <div class="footer">
+      <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In</button>
+      <p class="or">OR</p>
+      <button (click)="onSignUp()" class="btn">Sign Up</button>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -36,14 +41,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterContentChecked {
   public visible: boolean = false;
   public isUserSpeaking: boolean = false;
-  public values: string[] | undefined;
+  public chipValues: string[] | undefined;
   public searchForm: FormGroup;
-  knob1Value!: number;
-  knob2Value!: number;
-  knob3Value!: number;
   primaryColor = ColorScheme.primaryColor;
   secondaryColor = ColorScheme.secondaryColor;
   tertiaryColor = ColorScheme.tertiaryColor;
@@ -66,7 +68,8 @@ export class HomeComponent implements OnInit {
     private nutritionApi: NutritionixApiService,
     private fb: FormBuilder,
     private logService: LogService,
-    private http: HttpClient
+    private http: HttpClient,
+    private cdref: ChangeDetectorRef
   ) {
     this.searchForm = this.fb.group({
       searchText: ['', Validators.required],
@@ -94,13 +97,10 @@ export class HomeComponent implements OnInit {
 
   updateInputArrayCallback() {
     let inputString = this.searchForm.controls['searchText'].value;
-    this.values = inputString.split('.');
+    this.chipValues = inputString.split('.');
   }
 
   ngOnInit() {
-    this.knob1Value = 0;
-    this.knob2Value = 10;
-    this.knob3Value = 20;
     this.initVoiceInput();
 
     this.getTargetValue();
@@ -120,9 +120,15 @@ export class HomeComponent implements OnInit {
       }
     });
 
+    this.cdref.detectChanges();
+
     setTimeout(() => {
       this.totalDailyCalories = this.getDailyCalories();
     }, 500);
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdref.detectChanges();
   }
 
   public getAllItems(): MealItem[] {
@@ -219,7 +225,7 @@ export class HomeComponent implements OnInit {
     this.searchForm.reset();
     //reset the voice input
     this.stopRecording();
-    this.values = [];
+    this.chipValues = [];
     this.speechToText.reset();
   }
 
@@ -268,8 +274,10 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.chipValues);
+
     if (this.searchForm.valid) {
-      this.getNutritionData(this.searchForm.controls['searchText'].value);
+      this.getNutritionData(this.chipValues?.join('.')!);
     }
 
     if (this.isUserSpeaking) {

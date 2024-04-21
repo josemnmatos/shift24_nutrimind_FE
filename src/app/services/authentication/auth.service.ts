@@ -1,24 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  apiEndpoint = 'http://localhost:8000';
+  apiEndpoint = environment.API_ENDPOINT;
   constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string) {
-    return this.httpClient
-      .post(`${this.apiEndpoint}/login/`, {
-        email: email,
-        password: password,
-      })
-      .subscribe((data) => {
-        console.log(data);
-        localStorage.setItem('token', (data as any).token);
-      });
+    return this.httpClient.post(`${this.apiEndpoint}/login/`, {
+      email: email,
+      password: password,
+    });
   }
 
   register(email: string, password: string) {

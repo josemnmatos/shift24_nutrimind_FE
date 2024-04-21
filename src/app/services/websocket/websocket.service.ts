@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { io } from 'socket.io-client';
+import { environment } from '../../../environments/environment';
 
 export interface Message {
   source: string;
@@ -16,7 +17,7 @@ export class WebsocketService {
 
   //localStorage.getItem('token')
 
-  socket = io('http://localhost:8000', {
+  socket = io(environment.API_ENDPOINT, {
     extraHeaders: {
       Authorization: localStorage.getItem('token') || '',
     },

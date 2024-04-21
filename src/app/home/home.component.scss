@@ -2,7 +2,7 @@
 
   .info-subtitle {
     margin-bottom: 0;
-    font-size: 15px;
+    font-size: 20px;
   }
 }
 
@@ -22,13 +22,37 @@
   z-index: 500;
 }
 
+::ng-deep .p-chips-multiple-container {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  cursor: text;
+  overflow: hidden;
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+}
+
 ::ng-deep .p-chips .p-chips-multiple-container {
   padding: 0.7rem !important;
   margin-bottom: unset !important;
-  min-height: 13rem;
-  max-height: 17rem;
+  min-height: 20rem;
+  max-height: 20rem;
+  min-width: 16rem;
+  max-width: 16rem;
   overflow-y: auto;
   font-size: 15px;
+}
+
+::ng-deep .p-chips:not(.p-disabled):hover .p-chips-multiple-container {
+  border-color: #3d912e;
+}
+
+::ng-deep .p-chips:not(.p-disabled).p-focus .p-chips-multiple-container {
+  border-color: #3d912e;
+  box-shadow: 0 0 0 0.2rem #bbe9b3;
+  outline-offset: 0;
+  outline: 0 none;
 }
 
 ::ng-deep .p-dialog-mask {
@@ -48,3 +72,9 @@
   align-items: center;
   justify-content: center;
 }
+
+.filter-black{
+  filter: brightness(0) invert(0);
+}
+
+
