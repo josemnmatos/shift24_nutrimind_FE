@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 export const URL_DEFAULT = 'http://localhost:8000';
 
@@ -16,7 +16,7 @@ export class DataRequestsService {
     return this.http.get(url);
   }
 
-  public sendRangedDateMeals(url: string, data: any): Observable<any> {
-    return this.http.post(url, data);
+  public sendRangedDateMeals(url: string, header: any, data: any): Observable<any> {
+    return this.http.post(url, data, header);
   }
 }
