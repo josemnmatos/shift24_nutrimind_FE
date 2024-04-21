@@ -1,5 +1,5 @@
 <div
-  class="d-flex justify-content-center align-items-center flex-column"
+  class="d-flex justify-content-center align-items-center flex-column bg-light"
   style="height: 100vh; width: 100vw; position: relative"
 >
   <div class="d-flex flex-row pt-2" style="position: absolute; top: 0">
@@ -16,8 +16,8 @@
   </div>
   <div
     id="chatbot_box"
-    class="border border-dark rounded-3 d-flex flex-column overflow-y-auto bg-success-subtle p-2"
-    style="height: 80%; width: 80%"
+    class="border-0 border-dark rounded-3 d-flex flex-column overflow-y-auto overflow-y-hidden p-2"
+    style="height: 70%; width: 90%"
   >
     <ng-container *ngIf="num_messages > 0" style="height: 80%" class="p-2">
       <ng-container
@@ -38,7 +38,7 @@
         </div>
 
         <div
-          class="border border-dark rounded p-2"
+          class="border border-dark rounded p-2 bg-success-subtle"
           style="margin-right: auto; width: 45%; white-space: pre-line"
         >
           <div>
@@ -49,26 +49,26 @@
         </div>
       </ng-container>
     </ng-container>
-
-    <span
-      class="d-flex mx-auto mt-auto justify-content-center border border-dark rounded-3 p-2 m-2 bg-light align-self-end"
-      style="width: 80%"
-    >
-      <textarea
-        class="rounded-3 border-0 bg-light"
-        style="width: 80%; outline: none; font-size: small"
-        placeholder="Type your message here"
-        [(ngModel)]="newMessage"
-        (keyup.enter)="sendMessage()"
-      ></textarea>
-      <button
-        class="rounded-3 border-0 bg-success-subtle"
-        style="width: 20%; outline: none; font-size: small"
-        [disabled]="newMessage === ''"
-        (click)="sendMessage()"
-      >
-        Send
-      </button>
-    </span>
   </div>
+
+  <span
+    class="d-flex mx-auto justify-content-center border border-dark rounded-3 p-2 m-2 bg-light align-self-end"
+    style="width: 80%"
+  >
+    <textarea
+      class="rounded-3 border-0 bg-light"
+      style="width: 80%; outline: none; font-size: small"
+      placeholder="Type your message here"
+      [(ngModel)]="newMessage"
+      (keyup.enter)="sendMessage()"
+    ></textarea>
+    <button
+      class="rounded-3 border-0 bg-success-subtle"
+      style="width: 20%; outline: none; font-size: small"
+      [disabled]="newMessage === ''"
+      (click)="sendMessage()"
+    >
+      Send
+    </button>
+  </span>
 </div>
