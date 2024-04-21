@@ -10,9 +10,11 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
-          [(ngModel)]="knob1Value"
+          [ngModel]="getKnobValue('calories', getDailyCalories())"
           [valueColor]="primaryColor"
+          [valueTemplate]="getDailyCalories().toFixed(0)"
           [size]="60"
+          [max]="caloriesTargetValue"
         ></p-knob>
         <p class="subheader">calories</p>
       </div>
@@ -20,9 +22,11 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
-          [(ngModel)]="knob2Value"
+          [ngModel]="getKnobValue('carbs', getDailyCarbs())"
           [valueColor]="secondaryColor"
+          [valueTemplate]="getDailyCarbs().toFixed(0)"
           [size]="60"
+          [max]="carbsTargetValue"
         ></p-knob>
         <p class="subheader">carbs</p>
       </div>
@@ -30,9 +34,11 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
-          [(ngModel)]="knob3Value"
-          [valueColor]="quaternaryColor"
+          [ngModel]="getKnobValue('protein', getDailyProtein())"
+          [valueColor]="tertiaryColor"
+          [valueTemplate]="getDailyProtein().toFixed(0)"
           [size]="60"
+          [max]="proteinsTargetValue"
         ></p-knob>
         <p class="subheader">protein</p>
       </div>
@@ -40,17 +46,22 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
-          [(ngModel)]="knob3Value"
+          [ngModel]="getKnobValue('fats', getDailyFat())"
           [valueColor]="quaternaryColor"
+          [valueTemplate]="getDailyFat().toFixed(0)"
           [size]="60"
+          [max]="fatsTargetValue"
         ></p-knob>
         <p class="subheader">fats</p>
       </div>
     </div>
 
-    <div *ngFor="let meal of meals" class="row">
+    <div *ngFor="let mealType of dayItemsByMealType.keys()" class="row">
       <div class="mt-4">
-        <app-meal-card [mealLog]="meal"></app-meal-card>
+        <app-meal-card
+          [mealItems]="dayItemsByMealType.get(mealType)"
+          [mealType]="mealType"
+        ></app-meal-card>
       </div>
     </div>
   </div>

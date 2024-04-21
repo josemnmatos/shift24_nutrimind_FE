@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MealLog } from '../utils/interfaces/meal-log';
 import { NgFor, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -16,6 +16,7 @@ import {
   faUtensils,
   faWheatAwn,
 } from '@fortawesome/free-solid-svg-icons';
+import { MealItem } from '../utils/interfaces/meal-item';
 
 @Component({
   selector: 'app-meal-card',
@@ -24,19 +25,24 @@ import {
   templateUrl: './meal-card.component.html',
   styleUrl: './meal-card.component.scss',
 })
-export class MealCardComponent {
-  @Input() mealLog: MealLog | undefined;
+export class MealCardComponent implements OnInit {
+  @Input() mealType: string | undefined;
+  @Input() mealItems: MealItem[] | undefined;
+
   primaryColor = ColorScheme.primaryColor;
   secondaryColor = ColorScheme.secondaryColor;
   tertiaryColor = ColorScheme.tertiaryColor;
   quaternaryColor = ColorScheme.quaternaryColor;
 
+  ngOnInit(): void {
+    console.log(this.mealItems?.at(0)?.foodGroup);
+  }
   faCoffee = faCoffee;
 
   getTotalCalories(): number {
     let totalCalories = 0;
-    if (this.mealLog) {
-      this.mealLog.mealItems.forEach((mealItem) => {
+    if (this.mealItems) {
+      this.mealItems.forEach((mealItem) => {
         totalCalories += mealItem.calories;
       });
     }
@@ -45,8 +51,8 @@ export class MealCardComponent {
 
   getTotalProtein(): number {
     let totalProtein = 0;
-    if (this.mealLog) {
-      this.mealLog.mealItems.forEach((mealItem) => {
+    if (this.mealItems) {
+      this.mealItems.forEach((mealItem) => {
         totalProtein += mealItem.protein;
       });
     }
@@ -55,8 +61,8 @@ export class MealCardComponent {
 
   getTotalCarbs(): number {
     let totalCarbs = 0;
-    if (this.mealLog) {
-      this.mealLog.mealItems.forEach((mealItem) => {
+    if (this.mealItems) {
+      this.mealItems.forEach((mealItem) => {
         totalCarbs += mealItem.totalCarbohydrate;
       });
     }
@@ -65,8 +71,8 @@ export class MealCardComponent {
 
   getTotalFat(): number {
     let totalFat = 0;
-    if (this.mealLog) {
-      this.mealLog.mealItems.forEach((mealItem) => {
+    if (this.mealItems) {
+      this.mealItems.forEach((mealItem) => {
         totalFat += mealItem.totalFat;
       });
     }
@@ -95,6 +101,4 @@ export class MealCardComponent {
         return faUtensils;
     }
   }
-
-  constructor() {}
 }
