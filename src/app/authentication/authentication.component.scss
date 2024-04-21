@@ -6,7 +6,6 @@
 
   .form {
     background-color: #fff;
-    height: 500px;
     width: 350px;
     border-radius: 16px;
 
@@ -29,7 +28,6 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin-top: 3rem;
 
       .or {
         margin: 6px 0;
@@ -51,6 +49,43 @@ input {
   outline: none;
 }
 
+.other-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.3rem;
+  padding: 10px;
+
+  .other-input {
+    width: 30%;
+    margin: 0 5px;
+  }
+
+  .middle {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+  }
+}
+
+::ng-deep .p-dropdown {
+  width: 250px;
+  margin-top: 1rem;
+  background-color: #F8F8F8;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+
+  .p-dropdown-label.p-placeholder {
+    color: #bec8ca;
+  }
+
+  .p-dropdown-panel .p-dropdown-items {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
 ::placeholder {
   color: #BEBEBE;
 }
@@ -68,7 +103,8 @@ input {
 }
 
 .btn:focus {
-  background-color: #C3E0FA;
+  color: white;
+  background-color: #92c470;
 }
 
 ::ng-deep .p-message.p-message-error .p-message-icon {

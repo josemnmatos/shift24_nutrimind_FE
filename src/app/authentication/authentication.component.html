@@ -1,71 +1,38 @@
-<!--<div>
-  <form action="">
-    <div>
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="this.email"
-        name="email"
-        required
-      />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input
-        type="password"
-        [(ngModel)]="this.password"
-        id="password"
-        name="password"
-        required
-      />
-    </div>
-    <button (click)="onSignIn()" type="submit">Login</button>
-  </form>
-</div>
-
-<br /><br />
-<div>
-  <form action="">
-    <div>
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="this.email"
-        name="email"
-        required
-      />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input
-        type="password"
-        [(ngModel)]="this.password"
-        id="password"
-        name="password"
-        required
-      />
-    </div>
-    <button (click)="onSignUp()" type="submit">Register</button>
-  </form>
-</div>-->
-
 <p-messages [(value)]="errorMessage" [enableService]="false" [hideTransitionOptions]="'300ms'"></p-messages>
+<p-messages [(value)]="successMessage" [enableService]="false" [hideTransitionOptions]="'300ms'"></p-messages>
 
 <div class="auth-container">
-  <div class="form">
+  <div class="form" [ngStyle]="{'height': !isSigningIn ? '490px' : '550px'}">
     <div class="header">
       <img src="assets/images/logo.svg" alt="">
     </div>
-    <div class="inputs">
+
+    <div *ngIf="!isSigningIn" class="inputs">
       <input [(ngModel)]="email" placeholder="Email" type="text"><br>
       <input [(ngModel)]="password" placeholder="Password" type="password">
     </div>
-    <div class="footer">
-      <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In</button>
+
+    <div *ngIf="isSigningIn" class="other-inputs">
+      <input [(ngModel)]="email" placeholder="Email" type="text"><br>
+      <input [(ngModel)]="password" placeholder="Password" type="password">
+      <div class="middle">
+        <input [(ngModel)]="age" class="other-input" placeholder="Age" type="number">
+        <input [(ngModel)]="height" class="other-input" placeholder="Height" type="number">
+        <input [(ngModel)]="weight" class="other-input" placeholder="Weight" type="number">
+      </div>
+      <p-dropdown [options]="sexOptions" [(ngModel)]="selectedSex" optionLabel="name" placeholder="Sex"></p-dropdown>
+    </div>
+
+    <div *ngIf="!isSigningIn" class="footer" [ngStyle]="{'margin-top': !isSigningIn ? '3rem' : '1rem'}">
+      <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In 1</button>
       <p class="or">OR</p>
-      <button (click)="onSignUp()" class="btn">Sign Up</button>
+      <button (click)="goToSignUp()" class="btn">Sign Up 1</button>
+    </div>
+
+    <div *ngIf="isSigningIn" class="footer" [ngStyle]="{'margin-top': !isSigningIn ? '3rem' : '1rem'}">
+      <button (click)="goToSignIn()" class="btn">Log In 2</button>
+      <p class="or">OR</p>
+      <button [disabled]="!age || !height || !weight" (click)="onSignUp()" class="btn">Sign Up 2</button>
     </div>
   </div>
 </div>

@@ -10,6 +10,7 @@ import { MealHistoric } from '../utils/interfaces/meal-historic';
 import { KeyValuePipe, NgForOf, NgIf } from '@angular/common';
 import { KnobModule } from 'primeng/knob';
 import { AuthService } from '../services/authentication/auth.service';
+import {ColorScheme} from "../utils/color-scheme";
 
 @Component({
   selector: 'app-history',
@@ -29,6 +30,10 @@ export class HistoryComponent implements OnInit {
   date?: Date[];
   historic?: MealHistoric;
   noData: boolean = false;
+  primaryColor = ColorScheme.primaryColor;
+  secondaryColor = ColorScheme.secondaryColor;
+  tertiaryColor = ColorScheme.tertiaryColor;
+  quaternaryColor = ColorScheme.quaternaryColor;
   caloriesTargetValue: number = 1000;
   proteinsTargetValue: number = 40;
   fatsTargetValue: number = 40;
@@ -130,4 +135,7 @@ export class HistoryComponent implements OnInit {
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
   }
+
+  protected readonly parseInt = parseInt;
+  protected readonly String = String;
 }

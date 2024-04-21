@@ -27,7 +27,7 @@ export class AuthService {
     );
   }
 
-  register(email: string, password: string) {
+  register(email: string, password: string, age: number, height: number, weight: number, sexCode: string) {
     return this.httpClient
       .post(`${this.apiEndpoint}/api/insert_user/`, {
         uuid: this.getUUID(),
@@ -35,13 +35,10 @@ export class AuthService {
         lastName: '',
         email: email,
         password: password,
-        height: 180,
-        weight: 80,
-        age: 25,
-        gender: 'M',
-      })
-      .subscribe((data) => {
-        console.log(data);
+        height: height,
+        weight: weight,
+        age: age,
+        gender: sexCode,
       });
   }
 

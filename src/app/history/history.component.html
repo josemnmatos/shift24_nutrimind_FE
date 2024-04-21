@@ -27,9 +27,9 @@
           [size]="60"
           [disabled]="true"
           [ngModel]="getKnobValue('calories', item.value.calories)"
-          [valueColor]="'red'"
+          [valueColor]="primaryColor"
           [max]="caloriesTargetValue"
-          [valueTemplate]="item.value.calories.toString()"
+          [valueTemplate]="parseInt(String(item.value.calories)).toString()"
         ></p-knob>
         <p class="subheader">calories</p>
       </div>
@@ -38,9 +38,9 @@
           [size]="60"
           [disabled]="true"
           [ngModel]="getKnobValue('protein', item.value.protein)"
-          [valueColor]="'yellow'"
+          [valueColor]="secondaryColor"
           [max]="proteinsTargetValue"
-          [valueTemplate]="item.value.protein.toString()"
+          [valueTemplate]="parseInt(String(item.value.protein)).toString()"
         ></p-knob>
         <p class="subheader">protein</p>
       </div>
@@ -49,28 +49,23 @@
           [size]="60"
           [disabled]="true"
           [ngModel]="getKnobValue('fats', item.value.fat)"
-          [valueColor]="'green'"
+          [valueColor]="tertiaryColor"
           [max]="fatsTargetValue"
-          [valueTemplate]="item.value.fat.toString()"
+          [valueTemplate]="parseInt(String(item.value.fat)).toString()"
         ></p-knob>
-        <p class="subheader">protein</p>
+        <p class="subheader">fats</p>
       </div>
       <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
         <p-knob
           [size]="60"
           [disabled]="true"
-          [ngModel]="getKnobValue('carbs', item.value.fat)"
-          [valueColor]="'blue'"
+          [ngModel]="getKnobValue('carbs', item.value.carbs)"
+          [valueColor]="quaternaryColor"
           [max]="carbsTargetValue"
-          [valueTemplate]="item.value.carbs.toString()"
+          [valueTemplate]="parseInt(String(item.value.carbs)).toString()"
         ></p-knob>
-        <p class="subheader">protein</p>
+        <p class="subheader">carbs</p>
       </div>
-
-      <!--<p>Calories: {{ item.value.calories }}</p>
-      <p>Protein: {{ item.value.protein }}</p>
-      <p>Fat: {{ item.value.fat }}</p>
-      <p>Carbs: {{ item.value.carbs }}</p>-->
     </div>
   </div>
 </ng-container>

@@ -12,6 +12,7 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
+          [disabled]="true"
           [ngModel]="getKnobValue('calories', getDailyCalories())"
           [valueColor]="primaryColor"
           [valueTemplate]="getDailyCalories().toFixed(0)"
@@ -24,6 +25,7 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
+          [disabled]="true"
           [ngModel]="getKnobValue('carbs', getDailyCarbs())"
           [valueColor]="secondaryColor"
           [valueTemplate]="getDailyCarbs().toFixed(0)"
@@ -36,6 +38,7 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
+          [disabled]="true"
           [ngModel]="getKnobValue('protein', getDailyProtein())"
           [valueColor]="tertiaryColor"
           [valueTemplate]="getDailyProtein().toFixed(0)"
@@ -48,6 +51,7 @@
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
       >
         <p-knob
+          [disabled]="true"
           [ngModel]="getKnobValue('fats', getDailyFat())"
           [valueColor]="quaternaryColor"
           [valueTemplate]="getDailyFat().toFixed(0)"
