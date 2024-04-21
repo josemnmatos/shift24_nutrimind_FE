@@ -8,7 +8,7 @@
     background-color: #fff;
     height: 500px;
     width: 350px;
-    border-radius: 12px;
+    border-radius: 16px;
 
     .header {
       display: flex;
@@ -21,7 +21,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 5rem;
+      margin-top: 4rem;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 3rem;
+
+      .or {
+        margin: 6px 0;
+        font-size: 12px;
+      }
     }
   }
 }
@@ -43,13 +56,9 @@ input {
 }
 
 .btn {
-  position: absolute;
-  top: 72.5%;
-  left: 50%;
-  transform: translate(-50%, -72.5%);
   padding: 15px;
-  width: 80%;
-  border-radius: 5px;
+  width: 73%;
+  border-radius: 15px;
   border: none;
   background-color: #3897F1;
   color: white;
