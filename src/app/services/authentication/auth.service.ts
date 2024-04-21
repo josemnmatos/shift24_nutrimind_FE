@@ -11,10 +11,20 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(email: string, password: string) {
-    return this.httpClient.post(`${this.apiEndpoint}/login/`, {
-      email: email,
-      password: password,
-    });
+    let header_node = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+        rejectUnauthorized: 'false',
+      }),
+    };
+    return this.httpClient.post(
+      `${this.apiEndpoint}/login/`,
+      {
+        email: email,
+        password: password,
+      },
+      header_node
+    );
   }
 
   register(email: string, password: string) {
@@ -39,6 +49,8 @@ export class AuthService {
     const requestOptions = {
       headers: new HttpHeaders({
         Authorization: this.getToken(),
+        Accept: 'application/json',
+        rejectUnauthorized: 'false',
       }),
     };
 
