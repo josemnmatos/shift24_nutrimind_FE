@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { v4 as uuidv4 } from 'uuid';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +14,6 @@ export class AuthService {
       .post(`${this.apiEndpoint}/login/`, {
         email: email,
         password: password,
-      })
-      .subscribe((data) => {
-        console.log(data);
-        localStorage.setItem('token', (data as any).token);
       });
   }
 
