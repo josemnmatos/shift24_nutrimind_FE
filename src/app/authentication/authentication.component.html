@@ -62,6 +62,10 @@
       <input [(ngModel)]="email" placeholder="Email" type="text"><br>
       <input [(ngModel)]="password" placeholder="Password" type="password">
     </div>
-    <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In</button>
+    <div class="footer">
+      <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In</button>
+      <p class="or">OR</p>
+      <button (click)="onSignUp()" class="btn">Sign Up</button>
+    </div>
   </div>
 </div>
