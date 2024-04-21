@@ -1,0 +1,76 @@
+<div class="card flex justify-content-center mt-4 mb-4">
+  <p-calendar
+    placeholder="Please select your dates"
+    [style]="{ width: '100%' }"
+    [(ngModel)]="date"
+    [iconDisplay]="'input'"
+    [showIcon]="true"
+    [touchUI]="true"
+    [showButtonBar]="true"
+    [selectionMode]="'range'"
+    [dateFormat]="'dd/mm/yy'"
+    (onClose)="onClose()"
+    (onClearClick)="onClear()"
+  ></p-calendar>
+</div>
+
+<div *ngIf="noData" class="no-data-container">
+  <p>There aren't any meals in the current selected dates</p>
+</div>
+
+<ng-container *ngIf="historic && !noData">
+  <div *ngFor="let item of historic | keyvalue" class="data-container mb-4">
+    <p class="info-subtitle">{{ item.key }}</p>
+    <div class="d-flex justify-content-center align-items-center info-container">
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
+        <p-knob
+          [size]="60"
+          [disabled]="true"
+          [ngModel]="getKnobValue('calories', item.value.calories)"
+          [valueColor]="'red'"
+          [max]="caloriesTargetValue"
+          [valueTemplate]="item.value.calories.toString()"
+        ></p-knob>
+        <p class="subheader">calories</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
+        <p-knob
+          [size]="60"
+          [disabled]="true"
+          [ngModel]="getKnobValue('protein', item.value.protein)"
+          [valueColor]="'yellow'"
+          [max]="proteinsTargetValue"
+          [valueTemplate]="item.value.protein.toString()"
+        ></p-knob>
+        <p class="subheader">protein</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
+        <p-knob
+          [size]="60"
+          [disabled]="true"
+          [ngModel]="getKnobValue('fats', item.value.fat)"
+          [valueColor]="'green'"
+          [max]="fatsTargetValue"
+          [valueTemplate]="item.value.fat.toString()"
+        ></p-knob>
+        <p class="subheader">protein</p>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center ms-1 me-1">
+        <p-knob
+          [size]="60"
+          [disabled]="true"
+          [ngModel]="getKnobValue('carbs', item.value.fat)"
+          [valueColor]="'blue'"
+          [max]="carbsTargetValue"
+          [valueTemplate]="item.value.carbs.toString()"
+        ></p-knob>
+        <p class="subheader">protein</p>
+      </div>
+
+      <!--<p>Calories: {{ item.value.calories }}</p>
+      <p>Protein: {{ item.value.protein }}</p>
+      <p>Fat: {{ item.value.fat }}</p>
+      <p>Carbs: {{ item.value.carbs }}</p>-->
+    </div>
+  </div>
+</ng-container>
