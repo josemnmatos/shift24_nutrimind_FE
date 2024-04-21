@@ -17,6 +17,7 @@ import { SpeechToTextService } from '../services/speech-to-text/speech-to-text.s
 import { NutritionixApiService } from '../services/nutritionix/nutritionix-api.service';
 import { Convert, MealItem } from '../utils/interfaces/meal-item';
 import { LogService } from '../services/log/log.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -64,11 +65,31 @@ export class HomeComponent implements OnInit {
     private speechToText: SpeechToTextService,
     private nutritionApi: NutritionixApiService,
     private fb: FormBuilder,
-    private logService: LogService
+    private logService: LogService,
+    private http: HttpClient
   ) {
     this.searchForm = this.fb.group({
       searchText: ['', Validators.required],
     });
+  }
+
+  getTargetValue() {
+    const requestOptions = {
+      headers: new HttpHeaders({
+        Authorization: localStorage.getItem('token') || '',
+      }),
+    };
+    this.http
+      .get('http://localhost:8000/api/get_daily_intake/', requestOptions)
+      .subscribe((data) => {
+        //data comes as {conversation_id: '0'}
+        //store in local storage
+        console.log(data);
+        this.caloriesTargetValue = (data as any)['calories'];
+        this.proteinsTargetValue = (data as any)['protein'];
+        this.fatsTargetValue = (data as any)['fat'];
+        this.carbsTargetValue = (data as any)['carbs'];
+      });
   }
 
   updateInputArrayCallback() {
@@ -81,6 +102,8 @@ export class HomeComponent implements OnInit {
     this.knob2Value = 10;
     this.knob3Value = 20;
     this.initVoiceInput();
+
+    this.getTargetValue();
 
     this.logService.getDataForToday().subscribe((data: any) => {
       for (let mealType in data) {
