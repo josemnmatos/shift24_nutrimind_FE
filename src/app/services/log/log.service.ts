@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../authentication/auth.service';
 import { MealItem } from '../../utils/interfaces/meal-item';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LogService {
-  apiEndpoint = 'http://localhost:8000';
+  apiEndpoint = environment.API_ENDPOINT;
   constructor(private httpClient: HttpClient, private auth: AuthService) {}
 
   mealItemBody(item: MealItem) {
