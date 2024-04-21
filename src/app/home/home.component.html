@@ -1,10 +1,12 @@
 <div class="col d-flex justify-content-center ps-3 pe-3 mt-3 mb-5">
   <div class="main-container">
-    <img class="w-50 mx-auto d-block pb-4" src="assets/images/logo.svg" />
-    <!--<p class="display-4">Hello, user</p>-->
+    <img
+      class="filter-black w-50 mx-auto d-block pb-4"
+      src="assets/images/logo.svg"
+    />
     <p class="info-subtitle">Your day so far</p>
     <div
-      class="d-flex justify-content-center align-items-center info-container"
+      class="d-flex justify-content-center align-items-center info-container mt-1"
     >
       <div
         class="d-flex flex-column justify-content-center align-items-center ms-1 me-1"
@@ -67,22 +69,35 @@
   </div>
 </div>
 
+<div *ngIf="dayItemsByMealType.size == 0">
+  <div class="d-flex justify-content-center align-items-center mt-5">
+    <p class="info-subtitle">You haven't logged any meals yet</p>
+  </div>
+</div>
+
 <div>
   <p-button
     (click)="openInputDialog()"
     icon="pi pi-plus"
-    [style]="{ backgroundColor: primaryColor, borderColor: primaryColor }"
+    [style]="{
+      backgroundColor: primaryColor,
+      borderColor: primaryColor,
+      bottom: '4rem',
+      right: '2rem',
+      height: '3rem',
+      width: '3rem'
+    }"
   ></p-button>
   <p-dialog
-    header="Header"
+    header=""
     [(visible)]="visible"
     [draggable]="false"
     [resizable]="false"
   >
     <p-chips
-      [(ngModel)]="values"
+      [(ngModel)]="chipValues"
       separator=","
-      placeholder="Tell us what you ate today"
+      placeholder="Today I had ... for lunch ..."
       styleClass="chips"
     ></p-chips>
     <div class="d-flex justify-content-between mt-3">
