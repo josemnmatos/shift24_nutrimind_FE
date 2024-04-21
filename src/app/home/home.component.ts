@@ -16,6 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { SpeechToTextService } from '../services/speech-to-text/speech-to-text.service';
 import { NutritionixApiService } from '../services/nutritionix/nutritionix-api.service';
 import { Convert, MealItem } from '../utils/interfaces/meal-item';
+import { LogService } from '../services/log/log.service';
 
 @Component({
   selector: 'app-home',
@@ -46,20 +47,24 @@ export class HomeComponent implements OnInit {
   secondaryColor = ColorScheme.secondaryColor;
   tertiaryColor = ColorScheme.tertiaryColor;
   quaternaryColor = ColorScheme.quaternaryColor;
+  totalDailyCalories: number | undefined;
+  caloriesTargetValue: number = 2000;
+  proteinsTargetValue: number = 50;
+  fatsTargetValue: number = 50;
+  carbsTargetValue: number = 50;
 
   private nutritionData: MealItem[] = [];
 
-  meals: MealLog[] = [
-    {
-      mealType: 'Breakfast',
-      mealItems: this.nutritionData,
-    },
-  ];
+  public dayItemsByMealType: Map<string, MealItem[]> = new Map<
+    string,
+    MealItem[]
+  >();
 
   constructor(
     private speechToText: SpeechToTextService,
     private nutritionApi: NutritionixApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private logService: LogService
   ) {
     this.searchForm = this.fb.group({
       searchText: ['', Validators.required],
@@ -76,20 +81,167 @@ export class HomeComponent implements OnInit {
     this.knob2Value = 10;
     this.knob3Value = 20;
     this.initVoiceInput();
+
+    this.logService.getDataForToday().subscribe((data: any) => {
+      for (let mealType in data) {
+        let mealDetails = data[mealType];
+
+        let mealItems = mealDetails['mealList'];
+
+        this.dayItemsByMealType.set(mealType, []);
+
+        mealItems.forEach((item: any) => {
+          let convertedItem: MealItem = Convert.toMealItemFromBE(item);
+          this.dayItemsByMealType.get(mealType)?.push(convertedItem);
+        });
+      }
+    });
+
+    setTimeout(() => {
+      this.totalDailyCalories = this.getDailyCalories();
+    }, 500);
+  }
+
+  public getAllItems(): MealItem[] {
+    let allItems: MealItem[] = [];
+
+    for (let entry of this.dayItemsByMealType.entries()) {
+      let mealItems = entry[1];
+      mealItems.forEach((item) => {
+        allItems.push(item);
+      });
+    }
+
+    return allItems;
+  }
+
+  public getDailyCalories(): number {
+    let totalCalories = 0;
+
+    let allItems = this.getAllItems();
+
+    allItems.forEach((item) => {
+      totalCalories += item.calories;
+    });
+
+    return totalCalories;
+  }
+
+  public getDailyProtein(): number {
+    let totalProtein = 0;
+
+    let allItems = this.getAllItems();
+
+    allItems.forEach((item) => {
+      totalProtein += item.protein;
+    });
+
+    return totalProtein;
+  }
+
+  public getDailyCarbs(): number {
+    let totalCarbs = 0;
+
+    let allItems = this.getAllItems();
+
+    allItems.forEach((item) => {
+      totalCarbs += item.totalCarbohydrate;
+    });
+
+    return totalCarbs;
+  }
+
+  public getDailyFat(): number {
+    let totalFat = 0;
+
+    let allItems = this.getAllItems();
+
+    allItems.forEach((item) => {
+      totalFat += item.totalFat;
+    });
+
+    return totalFat;
+  }
+
+  getKnobValue(valueName: string, value: number): number {
+    switch (valueName) {
+      case 'calories':
+        if (value > this.caloriesTargetValue) {
+          return this.caloriesTargetValue;
+        }
+        return value;
+      case 'protein':
+        if (value > this.proteinsTargetValue) {
+          return this.proteinsTargetValue;
+        }
+        return value;
+      case 'fats':
+        if (value > this.fatsTargetValue) {
+          return this.fatsTargetValue;
+        }
+        return value;
+      case 'carbs':
+        if (value > this.carbsTargetValue) {
+          return this.carbsTargetValue;
+        }
+        return value;
+      default:
+        return 0;
+    }
   }
 
   public openInputDialog(): void {
     this.visible = true;
+    //reset the form
+    this.searchForm.reset();
+    //reset the voice input
+    this.stopRecording();
+    this.values = [];
+    this.speechToText.reset();
   }
 
   getNutritionData(input: string): void {
-    console.log(input);
     this.nutritionApi.getNutritionixData(input).subscribe((data: any) => {
+      let itemsByMealType: any = {};
+
       data['foods'].forEach((item: any) => {
-        this.nutritionData.push(Convert.toMealItem(item));
+        let convertedItem: MealItem = Convert.toMealItem(item);
+        this.nutritionData.push(convertedItem);
+
+        //decide mealType based on time of day
+        let mealTime = convertedItem.consumedAt?.getHours();
+        let mealType = 'Other';
+
+        if (mealTime && mealTime >= 7 && mealTime < 11) {
+          mealType = 'Breakfast';
+        } else if (mealTime && mealTime >= 11 && mealTime < 15) {
+          mealType = 'Lunch';
+        } else if (mealTime && mealTime >= 15 && mealTime < 18) {
+          mealType = 'Snack';
+        } else if (mealTime && mealTime >= 18 && mealTime < 22) {
+          mealType = 'Dinner';
+        } else {
+          mealType = 'Other';
+        }
+
+        if (!itemsByMealType[mealType]) {
+          itemsByMealType[mealType] = [];
+        }
+
+        itemsByMealType[mealType].push(convertedItem);
+
+        //save to module variable
+        if (!this.dayItemsByMealType.get(mealType)) {
+          this.dayItemsByMealType.set(mealType, []);
+        }
+
+        this.dayItemsByMealType.get(mealType)?.push(convertedItem);
       });
+
+      for (let mealType in itemsByMealType) {
+        this.logService.createMeal(mealType, itemsByMealType[mealType]);
+      }
     });
-    console.log(this.nutritionData);
   }
 
   onSubmit(): void {

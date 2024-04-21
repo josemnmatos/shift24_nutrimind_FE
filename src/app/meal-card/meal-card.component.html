@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-between">
     <div class="col-6 mt-1">
       <p class="text" style="color: #000000; font-size: 1.5rem">
-        {{ mealLog?.mealType }}
+        {{ mealType }}
       </p>
     </div>
     <div class="col-4 mt-2 me-2 text-end">
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div *ngFor="let item of mealLog?.mealItems">
+  <div *ngFor="let item of mealItems">
     <span class="d-flex">
       <fa-icon [icon]="getFoodGroupIcon(item.foodGroup)"></fa-icon>
       <p class="m-0 ms-2 text-start">{{ item?.name | titlecase }}</p>

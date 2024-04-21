@@ -1,0 +1,22 @@
+.no-data-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.info-subtitle {
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.info-container {
+  background: #FFFFFFFF;
+  border-radius: 13px;
+  padding: 6px 2px;
+}
+
+.subheader {
+  margin-bottom: 0;
+  font-size: 11px;
+}

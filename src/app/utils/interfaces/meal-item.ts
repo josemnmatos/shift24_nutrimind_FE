@@ -3,21 +3,22 @@ import { foodGroups } from '../enums';
 export interface MealItem {
   name: string;
   brand: string;
-  metadata: any;
-  servingQuantity: number;
-  servingUnit: string;
+  metadata?: any;
+  servingQuantity?: number;
+  servingUnit?: string;
   calories: number;
   totalFat: number;
-  saturatedFat: number;
-  cholesterol: number;
-  sodium: number;
+  saturatedFat?: number;
+  cholesterol?: number;
+  sodium?: number;
   totalCarbohydrate: number;
   dietaryFiber: number;
-  sugars: number;
+  sugars?: number;
   protein: number;
-  potassium: number;
-  fullNutrients: any;
+  potassium?: number;
+  fullNutrients?: any;
   foodGroup: string;
+  consumedAt?: Date;
 }
 
 export class Convert {
@@ -42,6 +43,20 @@ export class Convert {
       potassium: json.nf_potassium,
       fullNutrients: json.full_nutrients,
       foodGroup: foodGroups[foodGroupId],
+      consumedAt: json.consumed_at ? new Date(json.consumed_at) : undefined,
+    };
+  }
+
+  static toMealItemFromBE(json: any): MealItem {
+    return {
+      name: json.name,
+      brand: json.brand,
+      calories: json.calories,
+      totalFat: json.fat,
+      totalCarbohydrate: json.carbs,
+      dietaryFiber: json.fiber,
+      protein: json.protein,
+      foodGroup: json.category,
     };
   }
 }
