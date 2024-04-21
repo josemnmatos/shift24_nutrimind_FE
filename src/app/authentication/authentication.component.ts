@@ -53,6 +53,9 @@ export class AuthenticationComponent implements OnInit {
         })
       ).subscribe((data) => {
         this.successMessage = [{severity: 'success', summary: 'Success', detail: 'user created'}];
+        setTimeout(() => {
+          this.successMessage = [];
+        }, 4000);
         this.isSigningIn = false;
       });
     }

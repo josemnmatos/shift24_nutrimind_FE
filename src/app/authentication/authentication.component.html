@@ -24,15 +24,15 @@
     </div>
 
     <div *ngIf="!isSigningIn" class="footer" [ngStyle]="{'margin-top': !isSigningIn ? '3rem' : '1rem'}">
-      <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In 1</button>
+      <button [disabled]="!email || !password" (click)="onSignIn()" class="btn">Log In</button>
       <p class="or">OR</p>
-      <button (click)="goToSignUp()" class="btn">Sign Up 1</button>
+      <button (click)="goToSignUp()" class="btn">Sign Up</button>
     </div>
 
     <div *ngIf="isSigningIn" class="footer" [ngStyle]="{'margin-top': !isSigningIn ? '3rem' : '1rem'}">
-      <button (click)="goToSignIn()" class="btn">Log In 2</button>
+      <button (click)="goToSignIn()" class="btn">Log In</button>
       <p class="or">OR</p>
-      <button [disabled]="!age || !height || !weight" (click)="onSignUp()" class="btn">Sign Up 2</button>
+      <button [disabled]="!age || !height || !weight" (click)="onSignUp()" class="btn">Sign Up</button>
     </div>
   </div>
 </div>
