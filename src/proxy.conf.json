@@ -1,0 +1,7 @@
+{
+  "*": {
+    "target": "https://64.227.122.94/",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
